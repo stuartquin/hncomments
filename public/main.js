@@ -1,0 +1,68 @@
+var HNComments = (function() {
+    HNComments.name = 'HNComments';
+
+    function HNComments() {
+        this.url = "http://localhost:3000";
+        this.comments = [];
+    }
+
+    HNComments.prototype.fetch = function() {
+        var _that = this;
+        $.getJSON(this.url, function(data) {
+            _that.render(data);
+        });
+    };
+
+    HNComments.prototype.render = function(data) {
+        if (!data.items) {
+            return null;
+        }
+
+        var items = data.items;
+        var html = "<div>";
+
+        for( i in items ){
+            var comment = new HNComment(items[i]);
+            this.comments.push(comment);
+            html += comment.getHTML();
+        }
+
+        document.getElementById("hncomments").innerHTML = html;
+    }
+
+    return HNComments;
+})();
+
+
+// Represents a single hackernews comment
+var HNComment = (function() {
+    function HNComment(comment, parent_comment){
+        this.parent_comment = parent_comment;
+        this.children  = [];
+        this.comment   = comment;
+    }
+
+    // Get HTML for this comment
+    // Should include fetching HTML for all children comments
+    HNComment.prototype.getHTML = function(){
+        console.log(this.comment);
+
+        var headline = "<div class='hncomments-headline'>";
+        headline += "<a href='#'>"+this.comment.username+"</a>";
+        headline += "<span class='hncomments-time'>"+this.comment.time+"</span>";
+        headline += "</div>";
+
+        var body = "<div class='hncomments-body'>";
+        body += this.comment.comment;
+        body += "</div>";
+
+        var container = "<div class='hncomments-comment'>" + headline + body + "</div>";
+
+        return container;
+    }
+
+    return HNComment;
+})();
+
+comments = new HNComments();
+comments.fetch();
