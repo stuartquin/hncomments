@@ -1,3 +1,11 @@
+if (typeof $ == "undefined"){
+    var oHead = document.getElementsByTagName('HEAD').item(0);
+    var oScript= document.createElement("script");
+    oScript.type = "text/javascript";
+    oScript.src="http://localhost:3000/jquery.js";
+    oHead.appendChild(oScript);
+}
+
 var HNComments = (function() {
     function HNComments() {
         this.hn_el = document.getElementById("hncomments")
@@ -23,7 +31,7 @@ var HNComments = (function() {
             html += comment.getHTML();
         }
 
-        document.getElementsByTagName("head")[0].innerHTML += "<link rel='stylesheet' href='style.css'>";
+        document.getElementsByTagName("head")[0].innerHTML += "<link rel='stylesheet' href='http://localhost:3000/style.css'>";
         this.hn_el.innerHTML = html;
     }
 
@@ -31,7 +39,7 @@ var HNComments = (function() {
 })();
 
 
-// Represents a single hackernews comment
+// Represents a hackernews comment with children
 var HNComment = (function() {
     function HNComment(comment, parent_comment){
         this.parent_comment = parent_comment;
