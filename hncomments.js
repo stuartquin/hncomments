@@ -1,6 +1,7 @@
 var $ = require("jquery");
 var Scrape = require("./lib/scrape").Scrape;
 var fs = require("fs");
+var request = require('request');
 
 DEBUG = false;
 
@@ -19,10 +20,8 @@ var HNComments = (function() {
                 _that.scraper.parse_comments(demo.toString(), cb);
             });
         } else {
-            $.ajax({
-                url: url,
-            }).done(function(data) {
-                _that.scraper.parse_comments(data, cb);
+            request(url, function (error, response, body) {
+                _that.scraper.parse_comments(body, cb);
             });
         }
     };

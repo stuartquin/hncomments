@@ -13,7 +13,7 @@ var HNComments = (function() {
 
     HNComments.prototype.render = function(data) {
         var html = "";
-        console.log(data.form);
+        html += data.form;
 
         for( i in data.comments ){
             var comment = new HNComment(data.comments[i]);
