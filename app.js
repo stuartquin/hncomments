@@ -1,11 +1,11 @@
 var http = require('http');
-var hncomments = require("./hncomments");
-
-comments = new hncomments.HNComments();
+var HNComments = require("./hncomments").HNComments;
+var comments = new HNComments();
+    comments.fetch(function(data){
+    });
 
 http.createServer(function (request, response) {
-
-    comments.fetch(function(data){
+    comments.fetch(function(error,data){
         response.writeHead(200, {
             'Content-Type': 'text/plain',
             'Access-Control-Allow-Origin' : '*'

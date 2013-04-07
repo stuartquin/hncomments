@@ -1,17 +1,21 @@
-$ = require("jquery");
+var $ = require("jquery");
+var Scrape = require("./lib/scrape").Scrape;
+
 
 var HNComments = (function() {
     HNComments.name = 'HNComments';
 
     function HNComments() {
-        this.url = "http://hndroidapi.appspot.com/nestedcomments/format/json/id/5486605?appid=&callback=";
+        this.scraper = new Scrape();
+        this.url = "https://news.ycombinator.com/item?id=5506656";
     }
 
     HNComments.prototype.fetch = function(cb) {
+        var _that = this;
         $.ajax({
             url: this.url,
         }).done(function(data) {
-            cb(data);
+            _that.scraper.parse_comments(data, cb);
         });
     };
 
