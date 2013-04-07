@@ -1,6 +1,4 @@
 var HNComments = (function() {
-    HNComments.name = 'HNComments';
-
     function HNComments() {
         this.url = "http://localhost:3000?id=5506656";
         this.comments = [];
@@ -14,13 +12,14 @@ var HNComments = (function() {
     };
 
     HNComments.prototype.render = function(data) {
-        var html = "<div>";
+        var html = "";
         for( i in data ){
             var comment = new HNComment(data[i]);
             this.comments.push(comment);
             html += comment.getHTML();
         }
 
+        document.getElementsByTagName("head")[0].innerHTML += "<link rel='stylesheet' href='style.css'>";
         document.getElementById("hncomments").innerHTML = html;
     }
 
@@ -45,13 +44,21 @@ var HNComment = (function() {
     HNComment.prototype.getHTML = function(){
 
         var headline = "<div class='hncomments-headline'>";
-        headline += "<a href='#'>"+this.comment.author.name+"</a>";
-        headline += "<span class='hncomments-time'>"+this.comment.time_ago+"</span>";
+        headline += "<a href='https://news.ycombinator.com/"+ this.comment.author.link +"'>"
+        headline += this.comment.author.name+"</a>";
+        headline += "<span class='hncomments-time'> - "+this.comment.time_ago+"</span>";
         headline += "</div>";
+
+        var actions = "<div>";
+        actions += "<a href='https://news.ycombinator.com/"+this.comment.vote_link+"'>";
+        actions += "Up Vote</a>";
+        actions += "</div>";
 
         var body = "<div class='hncomments-body'>";
         body += this.comment.body;
         body += "</div>";
+        body += actions;
+        body += "<hr />";
 
         var container = "<div class='hncomments-comment'";
         container    += " style='margin-left:20px'>";

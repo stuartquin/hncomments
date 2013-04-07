@@ -16,14 +16,12 @@ var HNComments = (function() {
 
         if ( DEBUG ){
             fs.readFile("demo.html", function(err, demo){
-                console.log(demo.toString());
                 _that.scraper.parse_comments(demo.toString(), cb);
             });
         } else {
             $.ajax({
                 url: url,
             }).done(function(data) {
-                console.log(data);
                 _that.scraper.parse_comments(data, cb);
             });
         }

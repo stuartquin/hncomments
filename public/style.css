@@ -1,0 +1,8 @@
+#hncomments {
+    width: 800px;
+}
+
+#hncomments .hncomments-time {
+    color: #AAA;
+    font-size: 0.8em;
+}
