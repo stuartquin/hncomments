@@ -3,17 +3,16 @@ var Scrape = require("./lib/scrape").Scrape;
 
 
 var HNComments = (function() {
-    HNComments.name = 'HNComments';
-
-    function HNComments() {
+    function HNComments( id ) {
+        this.base_url = "https://news.ycombinator.com/item?id=";
         this.scraper = new Scrape();
-        this.url = "https://news.ycombinator.com/item?id=5506656";
     }
 
-    HNComments.prototype.fetch = function(cb) {
+    HNComments.prototype.fetch = function(id, cb) {
+        var url = this.base_url+id;
         var _that = this;
         $.ajax({
-            url: this.url,
+            url: url,
         }).done(function(data) {
             _that.scraper.parse_comments(data, cb);
         });
