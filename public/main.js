@@ -46,7 +46,7 @@ var HNComment = (function() {
 
         var headline = "<div class='hncomments-headline'>";
         headline += "<a href='#'>"+this.comment.author.name+"</a>";
-        //headline += "<span class='hncomments-time'>"+this.comment.time+"</span>";
+        headline += "<span class='hncomments-time'>"+this.comment.time_ago+"</span>";
         headline += "</div>";
 
         var body = "<div class='hncomments-body'>";
@@ -54,7 +54,7 @@ var HNComment = (function() {
         body += "</div>";
 
         var container = "<div class='hncomments-comment'";
-        container    += " style='margin-left:"+this.comment.indent+"px'>";
+        container    += " style='margin-left:20px'>";
 
         container    +=  headline + body;
         container    += "<div class='hncomments-children'>";
