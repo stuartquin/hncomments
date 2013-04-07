@@ -1,6 +1,8 @@
 var HNComments = (function() {
     function HNComments() {
-        this.url = "http://localhost:3000?id=5485903";
+        this.hn_el = document.getElementById("hncomments")
+        this.post_id = this.hn_el.getAttribute("data-post-id");
+        this.url = "http://localhost:3000?id="+this.post_id;
         this.comments = [];
     }
 
@@ -22,7 +24,7 @@ var HNComments = (function() {
         }
 
         document.getElementsByTagName("head")[0].innerHTML += "<link rel='stylesheet' href='style.css'>";
-        document.getElementById("hncomments").innerHTML = html;
+        this.hn_el.innerHTML = html;
     }
 
     return HNComments;
