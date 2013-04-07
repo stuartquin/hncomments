@@ -1,6 +1,8 @@
 var $ = require("jquery");
 var Scrape = require("./lib/scrape").Scrape;
+var fs = require("fs");
 
+DEBUG = true;
 
 var HNComments = (function() {
     function HNComments( id ) {
@@ -11,11 +13,20 @@ var HNComments = (function() {
     HNComments.prototype.fetch = function(id, cb) {
         var url = this.base_url+id;
         var _that = this;
-        $.ajax({
-            url: url,
-        }).done(function(data) {
-            _that.scraper.parse_comments(data, cb);
-        });
+
+        if ( DEBUG ){
+            fs.readFile("demo.html", function(err, demo){
+                console.log(demo.toString());
+                _that.scraper.parse_comments(demo.toString(), cb);
+            });
+        } else {
+            $.ajax({
+                url: url,
+            }).done(function(data) {
+                console.log(data);
+                _that.scraper.parse_comments(data, cb);
+            });
+        }
     };
 
     return HNComments;
