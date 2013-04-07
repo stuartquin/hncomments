@@ -2,7 +2,7 @@ var HNComments = (function() {
     HNComments.name = 'HNComments';
 
     function HNComments() {
-        this.url = "http://localhost:3000";
+        this.url = "http://localhost:3000?id=5506656";
         this.comments = [];
     }
 
@@ -14,15 +14,9 @@ var HNComments = (function() {
     };
 
     HNComments.prototype.render = function(data) {
-        if (!data.items) {
-            return null;
-        }
-
-        var items = data.items;
         var html = "<div>";
-
-        for( i in items ){
-            var comment = new HNComment(items[i]);
+        for( i in data ){
+            var comment = new HNComment(data[i]);
             this.comments.push(comment);
             html += comment.getHTML();
         }
@@ -40,23 +34,34 @@ var HNComment = (function() {
         this.parent_comment = parent_comment;
         this.children  = [];
         this.comment   = comment;
+
+        for( var i in comment.children ){
+            this.children.push(new HNComment(comment.children[i], this) );
+        }
     }
 
     // Get HTML for this comment
     // Should include fetching HTML for all children comments
     HNComment.prototype.getHTML = function(){
-        console.log(this.comment);
 
         var headline = "<div class='hncomments-headline'>";
-        headline += "<a href='#'>"+this.comment.username+"</a>";
-        headline += "<span class='hncomments-time'>"+this.comment.time+"</span>";
+        headline += "<a href='#'>"+this.comment.author.name+"</a>";
+        //headline += "<span class='hncomments-time'>"+this.comment.time+"</span>";
         headline += "</div>";
 
         var body = "<div class='hncomments-body'>";
-        body += this.comment.comment;
+        body += this.comment.body;
         body += "</div>";
 
-        var container = "<div class='hncomments-comment'>" + headline + body + "</div>";
+        var container = "<div class='hncomments-comment'";
+        container    += " style='margin-left:"+this.comment.indent+"px'>";
+
+        container    +=  headline + body;
+        container    += "<div class='hncomments-children'>";
+        for( var i in this.children ){
+            container += this.children[i].getHTML();
+        }
+        container    += "</div></div>";
 
         return container;
     }
