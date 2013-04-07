@@ -6,7 +6,21 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/stuartquin/hncomments.git"
+  },
   "author": "Stuart Quin",
-  "license": "BSD"
+  "license": "BSD",
+  "dependencies": {
+    "jquery": "~1.8.3",
+    "express": "~3.1.1",
+    "cheerio": "~0.10.8"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "HackerNews",
+    "API",
+    "comments"
+  ]
 }
