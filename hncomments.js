@@ -2,7 +2,7 @@ var $ = require("jquery");
 var Scrape = require("./lib/scrape").Scrape;
 var fs = require("fs");
 
-DEBUG = true;
+DEBUG = false;
 
 var HNComments = (function() {
     function HNComments( id ) {

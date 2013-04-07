@@ -1,6 +1,6 @@
 var HNComments = (function() {
     function HNComments() {
-        this.url = "http://localhost:3000?id=5506656";
+        this.url = "http://localhost:3000?id=5485903";
         this.comments = [];
     }
 
@@ -13,8 +13,10 @@ var HNComments = (function() {
 
     HNComments.prototype.render = function(data) {
         var html = "";
-        for( i in data ){
-            var comment = new HNComment(data[i]);
+        console.log(data.form);
+
+        for( i in data.comments ){
+            var comment = new HNComment(data.comments[i]);
             this.comments.push(comment);
             html += comment.getHTML();
         }
