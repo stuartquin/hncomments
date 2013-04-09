@@ -21,6 +21,8 @@ var HNComments = (function() {
 
     HNComments.prototype.fetch = function() {
         var _that = this;
+        this.hn_el.innerHTML = "<center><img class='loader' src='http://localhost:3000/ajax-loader.gif' /></center>";
+
         $.getJSON(this.url, function(data) {
             _that.render(data);
         });
@@ -45,7 +47,6 @@ var HNComments = (function() {
             }
         }
 
-        document.getElementsByTagName("head")[0].innerHTML += "<link rel='stylesheet' href='http://localhost:3000/style.css'>";
         this.hn_el.innerHTML = html;
     }
 

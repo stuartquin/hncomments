@@ -1,8 +1,14 @@
 #hncomments {
-    width: 800px;
+    width: 100%;
+    text-align: center;
 }
 
 #hncomments .hncomments-time {
     color: #AAA;
     font-size: 0.8em;
 }
+
+#hncomments div {
+    text-align: left;
+}
+
