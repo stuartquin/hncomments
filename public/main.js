@@ -11,6 +11,7 @@ var css = "#hncomments-wrapper h3{color:#000;}#hncomments-wrapper{background-col
 
 var HNComments = (function() {
     HNComments.comment_count = 0;
+    HNComments.total_comments = 0;
 
     function HNComments() {
         this.hn_el = document.getElementById("hncomments");
@@ -36,7 +37,7 @@ var HNComments = (function() {
     };
 
     HNComments.prototype.render = function(data) {
-        var html = '';
+        var html = ""
 
         if (this.styled) {
             var head = document.getElementsByTagName('head')[0];
@@ -49,14 +50,18 @@ var HNComments = (function() {
         html += "<div id='hncomments-wrapper'>";
 
         html += "<div id='hncomments-header'>";
-        html += "<h3>Comments from Hacker News</h3>";
+        html += "<hr />";
+        html += "powered by <strong><a target='_blank' href='https://github.com/stuartquin/hncomments/'>HNComments</a></strong>";
+        html += "<p>Join the discussion on ";
         html += "<a href='https://news.ycombinator.com/item?id="+this.post_id+"' target='_blank'>";
-        html += " | Join The Discussion";
-        html += "</a>";
+        html += "Hacker News";
+        html += "</a></p>";
         html += "<hr />";
         html += "</div>";
 
-        for( i in data.comments ){
+        HNComments.total_comments = data.comments.length;
+
+        for( var i in data.comments ){
             var comment = new HNComment(data.comments[i]);
             this.comments.push(comment);
             comment_str = comment.getHTML();
