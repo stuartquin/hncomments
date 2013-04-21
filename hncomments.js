@@ -1,14 +1,24 @@
 var $ = require("jquery");
 var Scrape = require("./lib/scrape").Scrape;
 var fs = require("fs");
-var request = require('request');
+var RequestCaching = require('node-request-caching');
 
 DEBUG = false;
 
 var HNComments = (function() {
-    function HNComments( id ) {
+    function HNComments( cacheType, port  ) {
         this.base_url = "https://news.ycombinator.com/item?id=";
         this.scraper = new Scrape();
+        this.rc = new RequestCaching({
+            store: {
+                adapter: cacheType
+            },
+
+            caching: {
+                ttl: 60*5,
+                prefix: 'hnCommentsCache'
+            }
+        });
     }
 
     HNComments.prototype.fetch = function(id, cb) {
@@ -20,9 +30,13 @@ var HNComments = (function() {
                 _that.scraper.parse_comments(demo.toString(), cb);
             });
         } else {
-            request(url, function (error, response, body) {
-                _that.scraper.parse_comments(body, cb);
-            });
+            this.rc.get(url, 
+                   null,
+                   300,
+                   function (error, headers, body, cache) {
+                     _that.scraper.parse_comments(body, cb);
+                   }
+            );
         }
     };
 
