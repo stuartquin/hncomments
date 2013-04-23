@@ -3,7 +3,6 @@ var getHost = (function() {
     var index = scripts.length-1;
     var thisScript = scripts[index];
     return function() {
-        console.log(thisScript.src); 
         return thisScript.src.match(/^(http[s]?:)?\/\/([A-Za-z0-9\.:]*)/)[2]; 
     };
 })();
