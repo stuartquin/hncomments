@@ -7,6 +7,8 @@ var getHost = (function() {
     };
 })();
 
+var css = "#hncomments-wrapper{background-color:#f6f6ef}#hncomments-wrapper hr{display:none}#hncomments-header{background-color:#f60;padding:2px;line-height:12pt;margin-bottom:15px}#hncomments-header h3{font-size:10pt;margin:0;display:inline;font-weight:bold;line-height:inherit}#hncomments-header a{font-size:10pt;color:black;text-decoration:none;line-height:inherit}.hncomments-headline{font-size:8pt;color:#828282;font-family:Verdana;margin-bottom:5px}.hncomments-headline a{text-decoration:none;color:#828282;font-family:Verdana}.hncomments-body{font-size:9pt;font-family:Verdana;margin-bottom:15px}.hncomments-body p{margin-top:8px;margin-bottom:0}.hncomments-body a{color:black}";
+
 var HNComments = (function() {
     HNComments.comment_count = 0;
 
@@ -14,6 +16,7 @@ var HNComments = (function() {
         this.hn_el = document.getElementById("hncomments");
         this.post_id = this.hn_el.getAttribute("data-post-id");
         this.url = 'http://'+getHost()+"?id="+this.post_id;
+        this.styled = this.hn_el.getAttribute('data-style');
         this.comments = [];
 
         HNComments.max_comments = this.hn_el.getAttribute("data-max-comments");
@@ -33,11 +36,22 @@ var HNComments = (function() {
     };
 
     HNComments.prototype.render = function(data) {
-        var html = "";
+        var html = '';
+
+        if (this.styled) {
+            var head = document.getElementsByTagName('head')[0];
+            var style = document.createElement('style');
+            style.type = 'text/css';
+            style.appendChild(document.createTextNode(css));
+            head.appendChild(style);
+        }
+
+        html += "<div id='hncomments-wrapper'>";
+
         html += "<div id='hncomments-header'>";
-        html += "<h3>HNComments</h3>";
+        html += "<h3>Comments from Hacker News</h3>";
         html += "<a href='https://news.ycombinator.com/item?id="+this.post_id+"' target='_blank'>";
-        html += "Join The Discussion On Hacker News";
+        html += " | Join The Discussion";
         html += "</a>";
         html += "<hr />";
         html += "</div>";
@@ -50,7 +64,8 @@ var HNComments = (function() {
                 html += comment_str;
             }
         }
-
+        
+        html += '</div>';
         this.hn_el.innerHTML = html;
     };
 
@@ -82,7 +97,7 @@ var HNComment = (function() {
         var headline = "<div class='hncomments-headline'>";
         headline += "<a target='_blank' href='https://news.ycombinator.com/"+ this.comment.author.link +"'>";
         headline += this.comment.author.name+"</a>";
-        headline += "<span class='hncomments-time'> - "+this.comment.time_ago+"</span>";
+        headline += "<span class='hncomments-time'> "+this.comment.time_ago+"</span>";
         headline += "</div>";
 
         var actions = "<div>";
