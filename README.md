@@ -8,7 +8,7 @@ Contributions from [stuartquin](http://github.com/stuartquin) and [saralk](http:
 
 ## Hosted
 
-The version hosted on ___hncomments.custardapp.com__ is intended for demo purposes only. For ensured reliability
+The version hosted on __hncomments.custardapp.com__ is intended for demo purposes only. For ensured reliability
 please clone and self host.
 
 If people really like the hosted version please get in touch and we can discuss solutions for a more permenant,
