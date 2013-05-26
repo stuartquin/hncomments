@@ -2,7 +2,7 @@ var Scrape = require("./lib/scrape").Scrape;
 var fs = require("fs");
 var RequestCaching = require('node-request-caching');
 
-DEBUG = false;
+var DEBUG = false;
 
 var HNComments = (function() {
     function HNComments( cacheType, port  ) {

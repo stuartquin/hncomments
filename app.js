@@ -14,7 +14,7 @@ var express = require('express');
 var app = express();
 
 var HNComments = require("./hncomments").HNComments;
-comments = new HNComments(cacheType, redisPort);
+var comments = new HNComments(cacheType, redisPort);
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
