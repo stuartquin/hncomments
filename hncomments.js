@@ -12,10 +12,9 @@ var HNComments = (function() {
             store: {
                 adapter: cacheType
             },
-
             caching: {
                 ttl: 60*5,
-                prefix: 'hnCommentsCache'
+                prefix: 'hn'
             }
         });
     }
@@ -33,7 +32,7 @@ var HNComments = (function() {
                    null,
                    300,
                    function (error, headers, body, cache) {
-                     _that.scraper.parse_comments(body, cb);
+                        _that.scraper.parse_comments(body, cb);
                    }
             );
         }
