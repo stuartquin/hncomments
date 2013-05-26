@@ -7,7 +7,7 @@ var getHost = (function() {
     };
 })();
 
-var css = "#hncomments-wrapper .hncomments-comment {padding:10px;}#hncomments-wrapper h3{color:#000;}#hncomments-wrapper{background-color:#f6f6ef}#hncomments-wrapper hr{display:none}#hncomments-header{text-shadow:none;background-color:#f60;padding:2px;line-height:12pt;margin-bottom:15px}#hncomments-header h3{font-size:10pt;margin:0;display:inline;font-weight:bold;line-height:inherit}#hncomments-header a{font-size:10pt;color:black;text-decoration:none;line-height:inherit}.hncomments-headline{font-size:8pt;color:#828282;font-family:Verdana;margin-bottom:5px}.hncomments-headline a{text-decoration:none;color:#828282;font-family:Verdana}.hncomments-body{font-size:9pt;font-family:Verdana;margin-bottom:15px}.hncomments-body p{margin-top:8px;margin-bottom:0}.hncomments-body a{color:black}";
+var css = "#hncomments-wrapper .join-text {color:#000; padding-top: 5px;} #hncomments-wrapper .hncomments-comment {padding:10px;}#hncomments-wrapper h3{color:#000;}#hncomments-wrapper{background-color:#f6f6ef}#hncomments-wrapper hr{display:none}#hncomments-header{text-shadow:none;background-color:#f60;padding:2px;line-height:12pt;margin-bottom:15px}#hncomments-header h3{font-size:10pt;margin:0;display:inline;font-weight:bold;line-height:inherit}#hncomments-header a{font-size:10pt;color:black;text-decoration:none;line-height:inherit}.hncomments-headline{font-size:8pt;color:#828282;font-family:Verdana;margin-bottom:5px}.hncomments-headline a{text-decoration:none;color:#828282;font-family:Verdana}.hncomments-body{font-size:9pt;font-family:Verdana;margin-bottom:15px}.hncomments-body p{margin-top:8px;margin-bottom:0}.hncomments-body a{color:black}";
 
 var HNComments = (function() {
     HNComments.comment_count = 0;
@@ -52,7 +52,7 @@ var HNComments = (function() {
         html += "<div id='hncomments-header'>";
         html += "<hr />";
         html += "<h3><a target='_blank' href='https://github.com/stuartquin/hncomments/'>HNComments</a></h3>";
-        html += "<p>Join the discussion on ";
+        html += "<p class='join-text'>Join the discussion on ";
         html += "<a href='https://news.ycombinator.com/item?id="+this.post_id+"' target='_blank'>";
         html += "Hacker News";
         html += "</a></p>";
