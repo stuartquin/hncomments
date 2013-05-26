@@ -1,4 +1,3 @@
-var $ = require("jquery");
 var Scrape = require("./lib/scrape").Scrape;
 var fs = require("fs");
 var RequestCaching = require('node-request-caching');
