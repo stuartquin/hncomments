@@ -1,5 +1,5 @@
 var getHost = (function() {
-    var scripts = document.getElementsByTagName('script');
+    var scripts = window.document.getElementsByTagName('script');
     var index = scripts.length-1;
     var thisScript = scripts[index];
     return function() {
@@ -14,7 +14,7 @@ var HNComments = (function() {
     HNComments.total_comments = 0;
 
     function HNComments() {
-        this.hn_el = document.getElementById("hncomments");
+        this.hn_el = window.document.getElementById("hncomments");
         this.post_id = this.hn_el.getAttribute("data-post-id");
         this.url = 'http://'+getHost()+"?id="+this.post_id;
         this.styled = this.hn_el.getAttribute('data-style');
@@ -28,7 +28,7 @@ var HNComments = (function() {
         var _that = this;
         this.hn_el.innerHTML = "<center><img class='loader' src='http://"+getHost()+"/ajax-loader.gif' /></center>";
         
-        var xhr = new XMLHttpRequest();
+        var xhr = new window.XMLHttpRequest();
         xhr.open('GET', _that.url);
         xhr.onload = function() {
             _that.render(JSON.parse(xhr.response));
@@ -40,10 +40,10 @@ var HNComments = (function() {
         var html = ""
 
         if (this.styled) {
-            var head = document.getElementsByTagName('head')[0];
-            var style = document.createElement('style');
+            var head = window.document.getElementsByTagName('head')[0];
+            var style = window.document.createElement('style');
             style.type = 'text/css';
-            style.appendChild(document.createTextNode(css));
+            style.appendChild(window.document.createTextNode(css));
             head.appendChild(style);
         }
 
@@ -64,7 +64,7 @@ var HNComments = (function() {
         for( var i in data.comments ){
             var comment = new HNComment(data.comments[i]);
             this.comments.push(comment);
-            comment_str = comment.getHTML();
+            var comment_str = comment.getHTML();
             if( comment_str !== null ){
                 html += comment_str;
             }
@@ -119,7 +119,7 @@ var HNComment = (function() {
         container += "<div class='hncomments-children'";
         container += " style='margin-left:30px'>";
         for( var i in this.children ){
-            comment_str = this.children[i].getHTML();
+            var comment_str = this.children[i].getHTML();
             if( comment_str ){
                 container += comment_str;
             }
@@ -132,5 +132,5 @@ var HNComment = (function() {
     return HNComment;
 })();
 
-comments = new HNComments();
+var comments = new HNComments();
 comments.fetch();
