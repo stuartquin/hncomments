@@ -18,6 +18,8 @@ var HNComments = (function() {
         this.post_id = this.hn_el.getAttribute("data-post-id");
         this.url = 'http://'+getHost()+"?id="+this.post_id;
         this.styled = this.hn_el.getAttribute('data-style');
+        this.styled = (this.styled !== null && this.styled.toLowerCase() === "true");
+
         this.comments = [];
 
         HNComments.max_comments = this.hn_el.getAttribute("data-max-comments");
@@ -52,10 +54,10 @@ var HNComments = (function() {
         html += "<div id='hncomments-header'>";
         html += "<hr />";
         html += "<h3><a target='_blank' href='https://github.com/stuartquin/hncomments/'>HNComments</a></h3>";
-        html += "<p class='join-text'>Join the discussion on ";
+        html += "<br/><span class='join-text'>";
         html += "<a href='https://news.ycombinator.com/item?id="+this.post_id+"' target='_blank'>";
-        html += "Hacker News";
-        html += "</a></p>";
+        html += "Join the discussion on Hacker News";
+        html += "</a></span>";
         html += "<hr />";
         html += "</div>";
 
