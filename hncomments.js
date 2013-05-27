@@ -1,14 +1,13 @@
 var Scrape = require("./lib/scrape").Scrape;
 var fs = require("fs");
 var RequestCaching = require('node-request-caching');
-var winston = require("winston");
-
 var DEBUG = false;
 
 var HNComments = (function() {
-    function HNComments( cacheType, port  ) {
+    function HNComments( cacheType, port, logger) {
         this.base_url = "https://news.ycombinator.com/item?id=";
         this.scraper = new Scrape();
+        this.logger = logger;
         this.rc = new RequestCaching({
             store: {
                 adapter: cacheType
@@ -34,12 +33,12 @@ var HNComments = (function() {
                    300,
                    function (error, headers, body, cache) {
                         if ( error ) {
-                            winston.error(error);
+                            _that.logger.error(error);
                             cb( error, null );
                             return;
                         }
 
-                        winston.info("Scraping", url, cache);
+                        _that.logger.info("Scraping", url, cache);
                         _that.scraper.parse_comments(body, cb);
                    }
             );

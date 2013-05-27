@@ -1,5 +1,21 @@
 var program = require('commander');
+var express = require('express');
+var app = express();
 
+var winston = require("winston");
+
+var logger = new winston.Logger({
+  transports: [
+    new winston.transports.Console({
+      handleExceptions: true
+    })
+  ],
+  exitOnError: false
+});
+
+var HNComments = require("./hncomments").HNComments;
+
+// Parse command line options
 program
     .option('-c, --cache [type]', 'The cache type to use: redis or memory (default is redis)')
     .option('-r, --redis [port]', 'The port that Redis is running on (default is 6379)', parseInt)
@@ -10,11 +26,7 @@ var cacheType = program.cache || 'redis';
 var redisPort = program.redis || 6379;
 var appPort = program.port || 4000;
 
-var express = require('express');
-var app = express();
-
-var HNComments = require("./hncomments").HNComments;
-var comments = new HNComments(cacheType, redisPort);
+var comments = new HNComments(cacheType, redisPort, logger);
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -45,4 +57,5 @@ app.get('/', function(req, res){
 });
 
 app.listen(appPort);
-console.log('Server started on port '+appPort);
+logger.info('Server started on port: '+appPort);
+logger.info('Cache Type: ' +cacheType);
