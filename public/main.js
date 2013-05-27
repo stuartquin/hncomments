@@ -39,7 +39,8 @@ var HNComments = (function() {
     };
 
     HNComments.prototype.render = function(data) {
-        var html = ""
+        var html = "";
+        var post_link = "https://news.ycombinator.com/item?id="+this.post_id;
 
         if (this.styled) {
             var head = window.document.getElementsByTagName('head')[0];
@@ -55,7 +56,7 @@ var HNComments = (function() {
         html += "<hr />";
         html += "<h3><a target='_blank' href='https://github.com/stuartquin/hncomments/'>HNComments</a></h3>";
         html += "<br/><span class='join-text'>";
-        html += "<a href='https://news.ycombinator.com/item?id="+this.post_id+"' target='_blank'>";
+        html += "<a href='"+post_link+"' target='_blank'>";
         html += "Join the discussion on Hacker News";
         html += "</a></span>";
         html += "<hr />";
@@ -70,6 +71,12 @@ var HNComments = (function() {
             if( comment_str !== null ){
                 html += comment_str;
             }
+        }
+        if( HNComments.total_comments === 0 ){
+            html += "<div class='hncomments-body'>";
+            html += "This post currently has no comments, why not";
+            html += " <a href='"+post_link+"'>start the discussion</a>";
+            html += "</div>";
         }
         
         html += '</div>';
@@ -107,7 +114,7 @@ var HNComment = (function() {
         headline += "<span class='hncomments-time'> "+this.comment.time_ago+"</span>";
         headline += "</div>";
 
-        var actions = "<div>";
+        var actions = "<div></div>";
 
         var body = "<div class='hncomments-body'>";
         body += this.comment.body;
