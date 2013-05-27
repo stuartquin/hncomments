@@ -1,6 +1,7 @@
 var Scrape = require("./lib/scrape").Scrape;
 var fs = require("fs");
 var RequestCaching = require('node-request-caching');
+var winston = require("winston");
 
 var DEBUG = false;
 
@@ -32,6 +33,13 @@ var HNComments = (function() {
                    null,
                    300,
                    function (error, headers, body, cache) {
+                        if ( error ) {
+                            winston.error(error);
+                            cb( error, null );
+                            return;
+                        }
+
+                        winston.info("Scraping", url, cache);
                         _that.scraper.parse_comments(body, cb);
                    }
             );

@@ -18,7 +18,8 @@
     "cheerio": "~0.10.8",
     "request": "~2.16.6",
     "node-request-caching": "0.0.1",
-    "commander": "~1.1.1"
+    "commander": "~1.1.1",
+    "winston": "0.7.1"
   },
   "devDependencies": {},
   "keywords": [

@@ -32,7 +32,11 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res){
     if ( req.query.id ){
-        comments.fetch(req.query.id, function(error,data){
+        comments.fetch(req.query.id, function(error, data){
+            if ( error ){
+                res.send({error: "Could not process request"}); 
+                return;
+            }
             res.send(data);
         });
     } else {
