@@ -62,16 +62,19 @@ var HNComments = (function() {
         html += "<hr />";
         html += "</div>";
 
-        HNComments.total_comments = data.comments.length;
+        if ( data.comments ){
+            HNComments.total_comments = data.comments.length;
 
-        for( var i in data.comments ){
-            var comment = new HNComment(data.comments[i]);
-            this.comments.push(comment);
-            var comment_str = comment.getHTML();
-            if( comment_str !== null ){
-                html += comment_str;
+            for( var i in data.comments ){
+                var comment = new HNComment(data.comments[i]);
+                this.comments.push(comment);
+                var comment_str = comment.getHTML();
+                if( comment_str !== null ){
+                    html += comment_str;
+                }
             }
         }
+
         if( HNComments.total_comments === 0 ){
             html += "<div class='hncomments-body'>";
             html += "This post currently has no comments, why not";
