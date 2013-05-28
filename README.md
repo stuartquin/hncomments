@@ -11,15 +11,15 @@ Contributions from [stuartquin](http://github.com/stuartquin) and [saralk](http:
 The version hosted on __hncomments.custardapp.com__ is intended for demo purposes only. For ensured reliability
 please clone and self host.
 
-If people really like the hosted version please get in touch and we can discuss solutions for a more permenant,
-gurarnteed hosted service.
+If people really like the hosted version please get in touch and we can discuss solutions for a more permanent,
+guaranteed hosted service.
 
 
 ## Usage
 
 Simply embed the following script in your blog or article:
 
-```
+```html
   <div id="hncomments" data-post-id="..."></div>
   <script src="http://hncomments.custardapp.com/main.js"></script>  
 ```
@@ -29,13 +29,13 @@ Simply embed the following script in your blog or article:
 The `id="hncomments"` element supports a range of `data-` parameters:
 
 * data-post-id: _required_ Integer. ID of the hackernews comment thread
-* data-max-comments: Integet. Amount of comments to display
+* data-max-comments: Integer. Amount of comments to display
 * data-style: Boolean. If set to true the comments will be styled like the 'classic' hackernews feed.
 
 
 ## Installation
 
-hncomments is written in nodejs. It makes requests to and scrapes the required Hacker News comment streams.
+hncomments is written in Node.js. It makes requests to and scrapes the required Hacker News comment streams.
 
 
 ```
